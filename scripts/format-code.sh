@@ -27,6 +27,7 @@ function display_help()
 LINTERS_ALL=( \
         commit_gitlint \
         commit_spelling \
+        codespell \
         beautysh \
         beautysh_sh \
         black \
@@ -189,6 +190,15 @@ LINTER_IGNORE+=([beautysh_sh]=".beautysh-ignore")
 LINTER_TYPES+=([beautysh_sh]="sh")
 function do_beautysh_sh() {
     beautysh --force-function-style paronly "$@"
+}
+
+LINTER_REQUIRE+=([codespell]="codespell")
+LINTER_IGNORE+=([codespell]=".codespell-ignore")
+LINTER_TYPES+=([codespell]="bash;c;cpp;markdown;python"])
+function do_codespell() {
+    codespell  -D "${CONFIG_PATH}/openbmc-spelling.txt" -d -w "$@"
+
+    codespell --builtin clear,rare,en-GB_to_en-US -d -w "$@"
 }
 
 LINTER_REQUIRE+=([black]="black")
