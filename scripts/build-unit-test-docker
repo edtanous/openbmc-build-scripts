@@ -98,6 +98,10 @@ packages = {
             f"./b2 install --prefix={prefix}",
         ],
     ),
+    "annacrombie/muon": PackageDef(
+        rev="0.2.0",
+        build_type="meson",
+    ),
     "USCiLab/cereal": PackageDef(
         rev="v1.3.2",
         build_type="custom",

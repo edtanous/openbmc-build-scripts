@@ -36,6 +36,7 @@ LINTERS_ALL=( \
         flake8 \
         isort \
         markdownlint \
+        muon \
         prettier \
         shellcheck \
     )
@@ -174,6 +175,13 @@ LINTER_TYPES+=([commit_gitlint]="commit")
 function do_commit_gitlint() {
     gitlint --extra-path "${CONFIG_PATH}/gitlint/" \
         --config "${CONFIG_PATH}/.gitlint"
+}
+
+LINTER_REQUIRE+=([muon]="muon")
+LINTER_IGNORE+=([muon]=".muon-ignore")
+LINTER_TYPES+=([muon]="meson")
+function do_muon() {
+    muon fmt -i "$@"
 }
 
 # We need different function style for bash/zsh vs plain sh, so beautysh is
